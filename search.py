@@ -155,13 +155,14 @@ def depth_first_search(
     """Return a path using Depth-First Search."""
     if start == goal:
             return [start]
-
-    path = [start]
+    
+    tiles = [start]
     visited = {start}
-    current = start
+    parenting={start:None}
 
-    while start!=goal:
-
+    while tiles:
+        current=tiles.pop()
+        
         neighboring_states = successors(game_map, current)
         
         if not neighboring_states:
@@ -170,15 +171,11 @@ def depth_first_search(
         unvisited_neighbors = [
             state for state in neighboring_states if state not in visited
         ]
-        
-        if unvisited_neighbors:
-            next_state = unvisited_neighbors[0]
-        else:
-            next_state = neighboring_states[0]
-        
-        path.append(next_state)
-        visited.add(next_state)
-        current = next_state
-        
+
         if current == goal:
-            return path
+            return _reconstruct_path(parenting, goal)
+
+        for i in unvisited_neighbors:
+                visited.add(i)
+                parenting[i] = current
+                tiles.append(i)
