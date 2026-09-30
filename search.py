@@ -112,19 +112,6 @@ def _reconstruct_path(
 
     return path
 
-def from_goal_to_zero(start:State,
-                   goal:State,
-                   visited:list[State])->list[State]:
-    path=[start] 
-
-    current=start
-    
-    for i in visited:
-        if (i==(current[0],current[1]+1)) | (i==(current[0]+1,current[1])) | (i==(current[0],current[1]-1)) | (i==(current[0]-1,current[1])):
-            path.append(i)
-
-    return path
-
 def breadth_first_search(
     game_map: GameMap,
     start: State,
