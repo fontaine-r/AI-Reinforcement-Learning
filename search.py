@@ -121,12 +121,12 @@ def breadth_first_search(
     if start == goal:
             return [start]
 
-    tiles = [start]
+    file = [start]
     visited = {start}
     parenting={start:None}
 
-    while tiles:
-        current=tiles.pop(0)
+    while file:
+        current=file.pop(0)
         
         neighboring_states = successors(game_map, current)
         
@@ -143,7 +143,7 @@ def breadth_first_search(
                  parenting[i]=current
                  if i == goal:
                     return _reconstruct_path(parenting,goal)
-                 tiles.append(i)
+                 file.append(i)
     
 
 
@@ -156,12 +156,12 @@ def depth_first_search(
     if start == goal:
             return [start]
     
-    tiles = [start]
+    stack = [start]
     visited = {start}
     parenting={start:None}
 
-    while tiles:
-        current=tiles.pop()
+    while stack:
+        current=stack.pop()
         
         neighboring_states = successors(game_map, current)
         
@@ -178,4 +178,4 @@ def depth_first_search(
         for i in unvisited_neighbors:
                 visited.add(i)
                 parenting[i] = current
-                tiles.append(i)
+                stack.append(i)
